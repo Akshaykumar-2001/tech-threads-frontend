@@ -3,7 +3,6 @@ const NaveBar = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        {/* <a className="btn btn-ghost text-xl"> 🧑‍💻 Tech Threads</a> */}
         <a className="btn btn-ghost text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
