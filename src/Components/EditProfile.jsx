@@ -4,11 +4,13 @@ import UserCard from "./UserCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/Redux/userSlice";
+import Toast from "./Toast";
 
 const EditProfile = () => {
   const user = useSelector((store) => store.user);
 
   if (!user) console.log("user is null");
+  const [toast, setToast] = useState(false);
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [age, setAge] = useState(user?.age);
@@ -36,9 +38,14 @@ const EditProfile = () => {
   };
   const handleSaveProfileClick = () => {
     updateUser();
+    setToast(true);
+    setTimeout(() => {
+      setToast(false);
+    }, 4000);
   };
   return (
     <div className="flex flex-row justify-center">
+      {toast && <Toast />}
       <div className="flex justify-center my-10 pb-12 pr-4">
         <div className="card bg-base-300 text-primary-content w-96">
           <div className="card-body">
