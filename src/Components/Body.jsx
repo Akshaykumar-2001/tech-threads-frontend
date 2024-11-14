@@ -31,7 +31,7 @@ const Body = () => {
       console.log(err);
     }
   };
-  // above thing we are done an route protecting also
+  // above thing we are done an routes protecting also
   // so whenever user with out logging in tries to see feed page we are redirect to login page
   // when body refreshes in initial render useEffect will be called only once (b/c of [])
   // in useEffect we have checked weather user is there or not by token. as backend only sends response only when token is valid

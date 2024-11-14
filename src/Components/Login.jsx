@@ -30,7 +30,7 @@ const Login = () => {
         { withCredentials: true }
       );
       //add to store
-      dispatch(addUser(res.data.user));
+      dispatch(addUser(res?.data?.user));
       navigate("/");
       console.log(res.data);
     } catch (err) {
