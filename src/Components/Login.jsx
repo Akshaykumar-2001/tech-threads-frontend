@@ -34,7 +34,7 @@ const Login = () => {
       navigate("/");
       console.log(res.data);
     } catch (err) {
-      setError(err?.response?.data || "something went wrong");
+      setError(err?.response?.data || "something went wrong login componenet");
       console.log(err);
     }
   };

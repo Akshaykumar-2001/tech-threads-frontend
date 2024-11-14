@@ -3,6 +3,7 @@ import { removeUser } from "../utils/Redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
+import { removeFeed } from "../utils/Redux/feedSlice";
 
 // from daisyUI
 const NaveBar = () => {
@@ -14,6 +15,7 @@ const NaveBar = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
+      dispatch(removeFeed());
       return navigate("/login");
     } catch (err) {
       console.log(err);
@@ -22,7 +24,7 @@ const NaveBar = () => {
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">
+        <Link to="/" className="btn btn-ghost text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -38,7 +40,7 @@ const NaveBar = () => {
             />
           </svg>
           Tech Threads
-        </a>
+        </Link>
       </div>
       {loggedInUser && (
         <div className="flex-none gap-2">

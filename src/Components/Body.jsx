@@ -25,10 +25,10 @@ const Body = () => {
       /// if not logged in from backend have sent 401 unauth..
       if (err.status === 401) {
         console.log("401 unauthorized");
-        navigate("/login");
       }
+      navigate("/login");
 
-      console.log(err);
+      console.log("error while loading body componenet " + err);
     }
   };
   // above thing we are done an routes protecting also
