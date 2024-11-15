@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { removeFeed } from "../utils/Redux/feedSlice";
+import { removeUserConnections } from "../utils/Redux/userConnectionSlice";
 
 // from daisyUI
 const NaveBar = () => {
@@ -16,6 +17,7 @@ const NaveBar = () => {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       dispatch(removeFeed());
+      dispatch(removeUserConnections());
       return navigate("/login");
     } catch (err) {
       console.log(err);
@@ -67,6 +69,9 @@ const NaveBar = () => {
               </li>
               <li>
                 <Link to="/">Feed</Link>
+              </li>
+              <li>
+                <Link to="/connections">Connections</Link>
               </li>
               <li>
                 <Link onClick={handleLogOut}>Logout</Link>
