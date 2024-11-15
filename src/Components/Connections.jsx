@@ -15,7 +15,6 @@ const Connections = () => {
         withCredentials: true,
       });
       dispatch(addUserConnections(res.data.connectionsData));
-      console.log(res);
     } catch (err) {
       console.log("Error in connections componet..." + err);
     }
@@ -23,7 +22,6 @@ const Connections = () => {
   useEffect(() => {
     fetchConnections();
   }, []);
-  console.log(connections);
   if (!connections) return <h1>NULL</h1>;
   if (connections?.length === 0) return <h1>No connections found !</h1>;
   return (

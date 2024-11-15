@@ -29,7 +29,6 @@ const EditProfile = () => {
         { firstName, lastName, age, gender, about, photoUrl },
         { withCredentials: true }
       );
-      console.log(res?.data?.user);
       dispatch(addUser(res?.data?.user));
     } catch (err) {
       setError(err?.response?.data || "something went wrong login componenet");

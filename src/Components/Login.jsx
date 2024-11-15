@@ -8,8 +8,8 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [isSignIn, setSignUp] = useState(false);
   const [error, setError] = useState("");
-  const [emailId, setEmail] = useState("akshay@gamil.com");
-  const [password, setPassword] = useState("Akshay@123");
+  const [emailId, setEmail] = useState("bhavi@gamil.com");
+  const [password, setPassword] = useState("bhavi@123");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const dispatch = useDispatch();
@@ -20,7 +20,6 @@ const Login = () => {
   };
   const handleLoginClick = async () => {
     try {
-      console.log("clicked");
       const res = await axios.post(
         BASE_URL + "/login",
         {
@@ -32,10 +31,9 @@ const Login = () => {
       //add to store
       dispatch(addUser(res?.data?.user));
       navigate("/");
-      console.log(res.data);
     } catch (err) {
       setError(err?.response?.data || "something went wrong login componenet");
-      console.log(err);
+      le.log(err);
     }
   };
   return (

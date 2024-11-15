@@ -5,6 +5,7 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { removeFeed } from "../utils/Redux/feedSlice";
 import { removeUserConnections } from "../utils/Redux/userConnectionSlice";
+import { removeRequestFromStore } from "../utils/Redux/requestSlice";
 
 // from daisyUI
 const NaveBar = () => {
@@ -18,15 +19,16 @@ const NaveBar = () => {
       dispatch(removeUser());
       dispatch(removeFeed());
       dispatch(removeUserConnections());
+      dispatch(removeRequestFromStore());
       return navigate("/login");
     } catch (err) {
-      console.log(err);
+      le.log(err);
     }
   };
   return (
     <div className="navbar bg-base-300">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link className="btn btn-ghost text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -72,6 +74,9 @@ const NaveBar = () => {
               </li>
               <li>
                 <Link to="/connections">Connections</Link>
+              </li>
+              <li>
+                <Link to="/requests">Requests</Link>
               </li>
               <li>
                 <Link onClick={handleLogOut}>Logout</Link>
