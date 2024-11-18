@@ -18,12 +18,19 @@ const Feed = () => {
       });
       dispatch(addFeed(res?.data?.data));
     } catch (err) {
-      le.log(err);
+      console.log(err);
     }
   };
   useEffect(() => {
     getFeed();
   }, []);
+  if (feed?.length === 0) {
+    return (
+      <h1 className="text-center text-bold text-zinc-400 font-bold mt-20 text-3xl ">
+        No new users available
+      </h1>
+    );
+  }
   return (
     feed && (
       <div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import UserCard from "./UserCard";
 import axios from "axios";
@@ -7,18 +7,17 @@ import { addUser } from "../utils/Redux/userSlice";
 import Toast from "./Toast";
 
 const EditProfile = () => {
-  const user = useSelector((store) => store.user);
-
-  if (!user) console.log("user is null");
+  const user = useSelector((store) => store?.user);
+  // console.log(user);
   const [toast, setToast] = useState(false);
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [age, setAge] = useState(user?.age);
-  const [gender, setGender] = useState(user?.gender);
-  const [about, setAbout] = useState(user?.about);
-  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
-  const [error, setError] = useState("");
+  const [firstName, setFirstName] = useState(user?.firstName || "");
+  const [lastName, setLastName] = useState(user?.lastName || "");
+  const [age, setAge] = useState(user?.age || "");
+  const [gender, setGender] = useState(user?.gender || "");
+  const [about, setAbout] = useState(user?.about || "");
+  const [photoUrl, setPhotoUrl] = useState(user?.photoUrl || "");
   const [skills, setSkills] = useState(""); //skills
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
 
   const updateUser = async () => {
@@ -42,9 +41,25 @@ const EditProfile = () => {
       setToast(false);
     }, 4000);
   };
+  useEffect(() => {
+    if (user !== null) {
+      setFirstName(user?.firstName || "");
+      setLastName(user?.lastName || "");
+      setAge(user?.age || "");
+      setGender(user?.gender || "");
+      setAbout(user?.about || "");
+      setPhotoUrl(user?.photoUrl || "");
+    }
+  }, [user]);
+  if (!user)
+    return (
+      <h1 className="text-bold text-zinc-400 font-bold text-3xl ">
+        Profile Loading...
+      </h1>
+    );
   return (
     <div className="flex flex-row justify-center">
-      {toast && <Toast />}
+      {toast && <Toast message={"Profile Updated successfully !"} />}
       <div className="flex justify-center my-10 pb-12 pr-4">
         <div className="card bg-base-300 text-primary-content w-96">
           <div className="card-body">

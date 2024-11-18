@@ -3,7 +3,7 @@ import { removeUser } from "../utils/Redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { removeFeed } from "../utils/Redux/feedSlice";
+import { removeFeedFromStore } from "../utils/Redux/feedSlice";
 import { removeUserConnections } from "../utils/Redux/userConnectionSlice";
 import { removeRequestFromStore } from "../utils/Redux/requestSlice";
 
@@ -17,7 +17,7 @@ const NaveBar = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
-      dispatch(removeFeed());
+      dispatch(removeFeedFromStore());
       dispatch(removeUserConnections());
       dispatch(removeRequestFromStore());
       return navigate("/login");

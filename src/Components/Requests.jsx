@@ -13,7 +13,6 @@ const Requests = () => {
         withCredentials: true,
       });
       dispatch(addRequests(res?.data));
-      // console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -23,7 +22,6 @@ const Requests = () => {
   }, []);
 
   const handleAccept = async (id) => {
-    // console.log(id);
     try {
       await axios.post(
         BASE_URL + `/request/review/accepted/${id}`,
@@ -39,7 +37,6 @@ const Requests = () => {
   };
 
   const handleReject = async (id) => {
-    // console.log(id);
     try {
       await axios.post(
         BASE_URL + `/request/review/rejected/${id}`,
@@ -55,7 +52,7 @@ const Requests = () => {
   };
 
   if (!requests) return <h1>null</h1>;
-  console.log(requests);
+
   if (requests.length === 0) return <h1>No requests</h1>;
   return (
     <div className="text-center my-10">
