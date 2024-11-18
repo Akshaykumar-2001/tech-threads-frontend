@@ -4,21 +4,25 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/Redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import Toast from "./Toast";
 
 const Login = () => {
   const [isSignIn, setSignUp] = useState(false);
   const [error, setError] = useState("");
-  const [emailId, setEmail] = useState("bhavi@gamil.com");
-  const [password, setPassword] = useState("bhavi@123");
+  const [emailId, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [isNewUser, setIsNewUSer] = useState(false);
+  const [toast, setToast] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleNewUserClick = () => {
     setSignUp(!isSignIn);
   };
-  const handleLoginClick = async () => {
+  const handleLogin = async () => {
+    setError("");
     try {
       const res = await axios.post(
         BASE_URL + "/login",
@@ -29,15 +33,44 @@ const Login = () => {
         { withCredentials: true }
       );
       //add to store
+      //whenever ajust now signed in user is logging in then redirect to edit profile
       dispatch(addUser(res?.data?.user));
-      navigate("/");
+      if (isNewUser) {
+        navigate("/profile");
+        setIsNewUSer(false);
+      } else navigate("/");
     } catch (err) {
       setError(err?.response?.data || "something went wrong login componenet");
-      le.log(err);
+      console.log(err);
+    }
+  };
+  const handleSignin = async () => {
+    setError("");
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          emailId,
+          password,
+        },
+        { withCredentials: true }
+      );
+      setSignUp(false);
+      setIsNewUSer(true);
+      setToast(true);
+      setTimeout(() => {
+        setToast(false);
+      }, 4000);
+    } catch (err) {
+      setError(err?.response?.data || "something went wrong login componenet");
+      console.log(err);
     }
   };
   return (
-    <div className="flex justify-center my-10 ">
+    <div className="flex justify-center my-10 mb-20">
+      {toast && <Toast message={"Signed Up Successfully"} />}
       <div className="card bg-base-300 text-primary-content w-96">
         <div className="card-body">
           <h1 className="card-title justify-center text-zinc-400 font-bold">
@@ -52,7 +85,7 @@ const Login = () => {
                 value={firstName}
                 type="text"
                 placeholder="Type here"
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs text-white"
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </label>
@@ -66,7 +99,7 @@ const Login = () => {
                 value={lastName}
                 type="text"
                 placeholder="Type here"
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full max-w-xs text-white"
                 onChange={(e) => setLastName(e.target.value)}
               />
             </label>
@@ -99,7 +132,7 @@ const Login = () => {
             <p className="text-red-600">{error}</p>
             <button
               className="text-white btn hover:shadow-xl bg-primary mt-3"
-              onClick={handleLoginClick}
+              onClick={isSignIn ? handleSignin : handleLogin}
             >
               {isSignIn ? "Sign In" : "Login"}
             </button>
