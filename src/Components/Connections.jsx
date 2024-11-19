@@ -9,7 +9,7 @@ const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.userConnections);
   const fetchConnections = async () => {
-    // if (connections) return;
+    if (connections) return;
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
